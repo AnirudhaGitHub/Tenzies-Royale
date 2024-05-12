@@ -177,7 +177,6 @@ async function joinGame(code, userAddress) {
 
         // update dice information
         await updateGameOf(docId, data)
-
         return {status : true, message: ""}; 
     } catch(error){
         console.log(error)
