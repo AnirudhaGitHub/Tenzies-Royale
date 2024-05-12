@@ -4,12 +4,13 @@ import { nanoid } from "nanoid";
 import ReactConfetti from "react-confetti";
 import Scoreboard from "./components/Scoreboard";
 import { rollDice, getGame, freezeDice } from "./functions/api/firebase";
-import { getGameDetails } from "./functions/tenzies";
+import { getGameDetails, claimReward } from "./functions/tenzies";
 import { useParams } from 'react-router-dom';
 // import { Web3OnboardProvider, init, useConnectWallet } from '@web3-onboard/react'
 // import injectedModule from '@web3-onboard/injected-wallets'
 import { ethers } from 'ethers'
 import {getConnectedWalletAddress} from "./functions/wallet"
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 // import NavBar from "./components/NavBar";
 
 import "./Game.css";
@@ -27,6 +28,7 @@ export default function Game() {
   const { game } = useParams();
   const [walletAddress, setWalletAddress] = React.useState(null);
   const [oppAddress, setOpp] = React.useState(null);
+  const [isLose, setIsLose] = React.useState(false);
 
   React.useEffect(() => {
     // Call the function to get the connected wallet address
@@ -35,6 +37,27 @@ export default function Game() {
       setWalletAddress(address);
     });
   }, [window.ethereum]);
+  
+  const handleClaim = async () => {
+
+    try {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+
+      // Assuming you have a signer object available
+      // Call the createGame function
+      const success = await claimReward(signer, game);
+      if (success) {
+        alert('Claimed sucessfully');
+      } else {
+        alert('Failed to claim the rewards');
+      }
+    } catch (error) {
+      console.error('Error claiming:', error);
+      alert('Failed to claim the rewards. Please try again.');
+    }
+};
+
   // const web3Onboard = init({
   //   wallets,
   //   chains,
@@ -86,7 +109,12 @@ export default function Game() {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const res = await getGameDetails(provider, game)
     const opp = res.data[1].toLowerCase() == walletAddress ? res.data[0] : res.data[1]
+    const isLose = res.data[5].toLowerCase() == "0x0000000000000000000000000000000000000000" ? false : (
+      res.data[5].toLowerCase() == opp.toLowerCase() ? true : false
+    )
+
     setOpp(opp)
+    setIsLose(isLose)
   }
   React.useEffect(() => {
     
@@ -236,7 +264,7 @@ export default function Game() {
         
         {tenzies && <ReactConfetti />}
         <main>
-          <h1 className="title">Tenzies</h1>
+          <h1 className="title">Tenzies Royale</h1>
           {!tenzies && (
             <p className="instructions">
               Roll until all dice are the same.
@@ -245,12 +273,21 @@ export default function Game() {
             </p>
           )}
           {tenzies && <p className="winner gradient-text"> YOU WON!</p>}
+          {isLose && <p style={{color: "red"}}> YOU LOST!</p>}
 
           <div className="dice-container">{diceElements}</div>
 
-          <button className="roll-dice" onClick={rollDiceFe}>
-            {tenzies ? "New game" : "Roll"}
+
+          <button className="roll-dice" onClick={tenzies ? handleClaim : rollDiceFe}>
+            {tenzies ? "Claim" : "Roll"}
           </button>
+          <br/>
+          <CopyToClipboard text={game}>
+            <div style ={{display : "flex", alignItems: "center", justifyContent: "center", backgroundColor: "white", borderRadius: "10px", cursor: "pointer"}}>
+            <h4>{`${game.substring(0, 5)}...${game.substring(game.length - 5)}`}</h4>
+            <button style={{backgroundColor:"grey", color: "white", width: "100px" , height :"30px", marginLeft: "5px"}}>Copy Code</button>
+            </div>
+          </CopyToClipboard>
         </main>
       </div>
   );

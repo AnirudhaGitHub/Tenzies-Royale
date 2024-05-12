@@ -45,7 +45,7 @@ export default function Menu() {
             // console.log("await signer.getAddress() ", await signer.getAddress())
             const res = await createGame(success.code,await getConnectedWalletAddress())
             console.log("res ", res)
-            if(res.status) navigate(`/game?=${success.code}`);
+            if(res.status) navigate(`/game/${success.code}`);
             else alert('Failed to create game.');
           } else {
             alert('Failed to create game.');

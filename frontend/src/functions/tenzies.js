@@ -56,3 +56,22 @@ export async function getGameDetails(provider, code) {
       return {status: false}
     }
 }
+
+export async function claimReward(signer, code) {
+  try {
+    // Create a new instance of the contract
+    const contract = new ethers.Contract(dexAddress, tenziesAbi, signer);
+    
+    const tx = await contract.claimWin(code, {gasLimit: "1000000"});
+    console.log('Transaction hash:', tx.hash);
+
+    // Wait for the transaction to be confirmed
+    const receipt = await tx.wait();
+  
+    console.log('Transaction confirmed:', receipt);
+    return true
+  } catch (error) {
+    console.error('Error claimReward:', error);
+    return false
+  }
+}
