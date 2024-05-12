@@ -1,0 +1,24 @@
+.menu-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+  
+  .menu-button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: var(--clr-button);
+    color: var(--clr-lighter);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+  }
+  

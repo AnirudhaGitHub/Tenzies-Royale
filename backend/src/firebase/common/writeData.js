@@ -2,9 +2,9 @@ const { updateDoc, getDoc, doc, addDoc, setDoc } = require("firebase/firestore")
 const {ethers} = require('ethers')
 
 // Function to update data in Firestore
-async function updateOrsetDocument(collectionRef, documentId, newData, setData, idIsAddress = true) {
+async function updateOrsetDocument(collectionRef, documentId, newData, setData, idIsAddress = false) {
     try {
-      if(idIsAddress)documentId = ethers.utils.getAddress(documentId);
+      // if(idIsAddress)documentId = ethers.utils.getAddress(documentId);
   
       const docRef = collectionRef.doc(documentId);
       const docSnapshot = await docRef.get();

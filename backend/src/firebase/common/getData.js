@@ -19,9 +19,9 @@ const getAllDocument = async (collectionRef) => {
     }
   };
 
-const getDocument = async (collectionRef, documentId, isCheckSumDoc = true) => {
+const getDocument = async (collectionRef, documentId, isCheckSumDoc = false) => {
     try {
-      if(isCheckSumDoc == true)documentId = ethers.utils.getAddress(documentId); // Transform ID if needed
+      // if(isCheckSumDoc == true)documentId = ethers.utils.getAddress(documentId); // Transform ID if needed
   
       const docSnapshot = await collectionRef.doc(documentId).get();
       

@@ -1,2 +1,3 @@
 src/firebase/serviceAccountKey.json
 node_modules
+.env
