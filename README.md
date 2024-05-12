@@ -17,8 +17,11 @@ https://tenzies-royale.vercel.app/
 ## Tech Stack used
 
 frontend = React JS
+
 smart Contract = solidity
+
 build and testing environment = RollApp sdk and local EVM RollApp (the RollApp sdk is being used for creating a EVM rollapp for Tenzies royale where this game was built and tested.)
+
 Backend = firebase (nodejs)
 
 ## Built on Rollapp X
