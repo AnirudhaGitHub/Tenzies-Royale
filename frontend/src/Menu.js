@@ -8,7 +8,7 @@ import {createGameFn, joinGameFn, getGameDetails} from "./functions/tenzies"
 import { useNavigate } from 'react-router-dom';
 import {createGame, joinGame} from "./functions/api/firebase"
 import {getConnectedWalletAddress} from "./functions/wallet"
-// import NavBar from "./components/NavBar";
+import NavBar from "./components/NavBar";
 
 import "./Game.css";
 
@@ -86,13 +86,15 @@ export default function Menu() {
     // Function to render menu screen
     const renderMenuScreen = () => (
     <div className="menu-container">
-        <h1 className="title">Tenzies</h1>
+      <h1 className="title">Tenzies Royale</h1>
+        <br/>
         <div className="menu-inputs">
         <label htmlFor="entryFee" className="menu-label" >Entry Fee Amount:</label>
         <input type="number" id="entryFee" className="menu-input" value={entryFee} 
           onChange={handleEntryFeeChange} />
         </div>
         <button className="menu-button" onClick={handleCreateGame}>Create Game</button>
+        <br/>
         <div className="menu-inputs">
         <label htmlFor="gameCode" className="menu-label">Game Code:</label>
         <input type="text" id="gameCode" className="menu-input" value={gameCode} 
@@ -104,7 +106,7 @@ export default function Menu() {
   return (
     <>
       <div className="app-container shadow-shorter">
-        
+        <NavBar/>
         <main>
           {renderMenuScreen()}
         </main>

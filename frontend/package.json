@@ -6,8 +6,6 @@
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
-    "@web3-onboard/injected-wallets": "^2.10.16",
-    "@web3-onboard/react": "^2.8.17",
     "axios": "^1.1.1",
     "ethers": "^5.7.2",
     "nanoid": "^4.0.0",

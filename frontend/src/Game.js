@@ -11,7 +11,7 @@ import { useParams } from 'react-router-dom';
 import { ethers } from 'ethers'
 import {getConnectedWalletAddress} from "./functions/wallet"
 import {CopyToClipboard} from 'react-copy-to-clipboard';
-// import NavBar from "./components/NavBar";
+import NavBar from "./components/NavBar";
 
 import "./Game.css";
 // const INFURA_KEY = ''
@@ -260,7 +260,7 @@ export default function Game() {
 
   return (
       <div className="app-container shadow-shorter">
-        
+        <NavBar/>
         
         {tenzies && <ReactConfetti />}
         <main>
