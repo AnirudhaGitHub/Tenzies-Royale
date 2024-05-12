@@ -112,13 +112,16 @@ export default function Game() {
     const isLose = res.data[5].toLowerCase() == "0x0000000000000000000000000000000000000000" ? false : (
       res.data[5].toLowerCase() == opp.toLowerCase() ? true : false
     )
-
+    console.log("isLose ", isLose)
     setOpp(opp)
     setIsLose(isLose)
   }
   React.useEffect(() => {
-    
-    getOpp()
+    const intervalId = setInterval(() => {
+      getOpp();
+    }, 3000); // Call getOpp every 3 seconds
+  
+    return () => clearInterval(intervalId); // Cleanup function to clear the interval
   }, [game, walletAddress]);
 
   React.useEffect(() => {
