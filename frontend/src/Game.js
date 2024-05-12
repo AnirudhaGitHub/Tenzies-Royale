@@ -258,6 +258,10 @@ export default function Game() {
     return () => clearInterval(interval);
   }, [start]);
 
+  function doNothing(){
+
+  }
+
   return (
       <div className="app-container shadow-shorter">
         <NavBar/>
@@ -278,7 +282,7 @@ export default function Game() {
           <div className="dice-container">{diceElements}</div>
 
 
-          <button className="roll-dice" onClick={tenzies ? handleClaim : rollDiceFe}>
+          <button className="roll-dice" onClick={tenzies ? handleClaim : (isLose ? doNothing : rollDiceFe)}>
             {tenzies ? "Claim" : "Roll"}
           </button>
           <br/>
