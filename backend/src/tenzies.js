@@ -4,9 +4,8 @@ const {ethers} = require("ethers")
 const {tenziesAbi} = require("./tenziesAbi")
 require("dotenv").config()
 
-const provider = new ethers.providers.JsonRpcProvider("https://public.stackup.sh/api/v1/node/arbitrum-sepolia")
-// "https://json-rpc.rolxtwo.evm.ra.blumbus.noisnemyd.xyz")
-const contractAddress = "0x28051bbc50E5274024e9A36c89De314877696ca8";
+const provider = new ethers.providers.JsonRpcProvider("https://json-rpc.rolxtwo.evm.ra.blumbus.noisnemyd.xyz")
+const contractAddress = "0x8B1e8eB93b255E0a3d273A6b24c68A2eC0f3647C";
 
 async function finishGame(code, winner) {
     try {
@@ -18,9 +17,6 @@ async function finishGame(code, winner) {
 
         // Prepare the transaction data
         const transaction = await contract.finishGame(code, winner);
-
-        // Sign and send the transaction
-        const result = await wallet.sendTransaction(transaction);
 
         console.log("Transaction sent:", result.hash);
         return true
@@ -44,14 +40,6 @@ async function getGameData(code) {
         console.error("Error :", error);
         return {status: false, data: null}
     }
-}
-
-async function main(){
-    const userAddress = "0xc01cee8a56D4F40862ffb574665380f2507a8bBC"
-    // await rollDice("", userAddress, 1)
-    await freezeDice("", userAddress, userAddress, 0)
-    const data = await getGameOfDoc(userAddress)
-    console.log(data)
 }
 
 async function rollDice(code, userAddress) {
@@ -129,7 +117,7 @@ async function freezeDice(code, userAddress, opponentAddress, diceIndex){
     
         if(isWin){
             // update onchain
-            await finishGame(userAddress, code)
+            await finishGame(code, userAddress)
         }
     
         return {status: true, isWin: isWin}

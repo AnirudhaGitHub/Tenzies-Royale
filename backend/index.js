@@ -1,7 +1,7 @@
 const express = require('express');
-const { rollDice, freezeDice, createGame, joinGame } = require('./tenzies');
+const { rollDice, freezeDice, createGame, joinGame } = require('./src/tenzies');
 const cors = require('cors');
-const {getGameOfDoc} = require("./firebase/functions/read/getGameData")
+const {getGameOfDoc} = require("./src/firebase/functions/read/getGameData")
 
 const app = express();
 const port = 4000;
@@ -44,6 +44,12 @@ app.post('/getGame', async (req, res) => {
     res.json(data);
 });
 
+app.get("/", (req, res)=> {
+    res.json({data: "Tenzies API"})
+})
+
 app.listen(port, () => {
     console.log(`Express app listening at ${port}`);
 });
+
+module.exports = app;
