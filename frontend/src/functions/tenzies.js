@@ -1,7 +1,7 @@
 const {ethers} = require("ethers")
 const {tenziesAbi} = require("../constants/abi/tenzies")
 
-const dexAddress = '0x6a6502Ea32f2c1D7Fdd5D0bB4Ac961777B42Dff3';
+const dexAddress = '0x8B1e8eB93b255E0a3d273A6b24c68A2eC0f3647C';
 
 export async function createGameFn(signer, fee) {
     try {
